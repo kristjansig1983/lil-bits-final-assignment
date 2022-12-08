@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import React from 'react'
+import Carousel from './Components/Carousel'
 
 const Home = () => {
   return (
@@ -14,12 +16,15 @@ const Home = () => {
       </div>
       <Main>
         <Top>
-          <Carousel></Carousel>
+          <Slider>
+            <Carousel />
+          </Slider>
           <OrderContainer></OrderContainer>
-          <Bottom>
-            <BottomContainer></BottomContainer>
-          </Bottom>
         </Top>
+        <Bottom>
+          <BottomContainer></BottomContainer>
+          <BottomContainer></BottomContainer>
+        </Bottom>
       </Main>
     </HomePage>
   )
@@ -49,13 +54,18 @@ const Logo = styled.img`
 const Top = styled.div`
   display: flex;
   justify-content: center;
-  padding: 6em;
+  padding: 4em;
 `
-const Carousel = styled.div`
+const Slider = styled.div`
   height: 20em;
   width: 40em;
   border: 2px solid black;
   margin-right: 8px;
+`
+
+const SliderImg = styled.image`
+  height: 20em;
+  width: 40em;
 `
 const OrderContainer = styled.div`
   height: 20em;
@@ -64,7 +74,7 @@ const OrderContainer = styled.div`
 `
 const BottomContainer = styled.div`
   height: 20em;
-  width: 25em;
+  width: 27.5em;
   border: 2px solid black;
 `
 const Main = styled.div`
@@ -74,5 +84,35 @@ const Main = styled.div`
   padding: 6em;
 `
 
-const Bottom = styled.div``
+const Bottom = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+`
+
+const LeftButton = styled.button`
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: white;
+  border: 1px solid black;
+  left: 21px;
+`
+const RightButton = styled.button`
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: white;
+  border: 1px solid black;
+  right: 24px;
+`
+
 export default Home
