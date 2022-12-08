@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import React from 'react'
-import Carousel from './Components/Carousel'
-
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import { Carousel } from 'react-responsive-carousel'
 const Home = () => {
   return (
     <HomePage>
@@ -17,7 +17,17 @@ const Home = () => {
       <Main>
         <Top>
           <Slider>
-            <Carousel />
+            <Carousel infiniteLoop showThumbs={false}>
+              <ImageContainer>
+                <img src='https://thenovicechefblog.com/wp-content/uploads/2011/02/Bearnaise-2-735x1103.jpeg' />
+              </ImageContainer>
+              <ImageContainer>
+                <img src='https://images-gmi-pmc.edge-generalmills.com/3a645e12-e0f4-4a7b-9327-41dade734acc.jpg' />
+              </ImageContainer>
+              <ImageContainer>
+                <img src='https://tatyanaseverydayfood.com/wp-content/uploads/2021/06/Caramelized-Onion-Bacon-Cheeseburger-Recipe-768x1024.jpg' />
+              </ImageContainer>
+            </Carousel>
           </Slider>
           <OrderContainer></OrderContainer>
         </Top>
@@ -63,7 +73,7 @@ const Slider = styled.div`
   margin-right: 8px;
 `
 
-const SliderImg = styled.image`
+const SliderImg = styled.img`
   height: 20em;
   width: 40em;
 `
@@ -90,29 +100,9 @@ const Bottom = styled.div`
   gap: 0.5em;
 `
 
-const LeftButton = styled.button`
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
-  background-color: white;
-  border: 1px solid black;
-  left: 21px;
-`
-const RightButton = styled.button`
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
-  background-color: white;
-  border: 1px solid black;
-  right: 24px;
+const ImageContainer = styled.div`
+  height: 20em;
+  width: 40em;
 `
 
 export default Home
