@@ -2,7 +2,14 @@ import styled from 'styled-components'
 import React from 'react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
+import { useNavigate } from 'react-router-dom'
+import SelectDish from './SelectDish'
 const Home = () => {
+  const navigate = useNavigate()
+
+  const dishPage = () => {
+    navigate('./SelectDish')
+  }
   return (
     <HomePage>
       <div>
@@ -29,7 +36,11 @@ const Home = () => {
               </ImageContainer>
             </Carousel>
           </Slider>
-          <OrderContainer></OrderContainer>
+          <OrderContainer>
+            <OrdedButton type='button' onClick={dishPage}>
+              Select Dish
+            </OrdedButton>
+          </OrderContainer>
         </Top>
         <Bottom>
           <BottomContainer></BottomContainer>
@@ -45,6 +56,7 @@ const HomePage = styled.div`
   justify-content: center;
   flex-direction: column;
   color: #ba2329;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 `
 
 const Head = styled.div`
@@ -78,9 +90,12 @@ const SliderImg = styled.img`
   width: 40em;
 `
 const OrderContainer = styled.div`
+  display: flex;
+  justify-content: center;
   height: 20em;
   width: 15em;
   border: 2px solid black;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 `
 const BottomContainer = styled.div`
   height: 20em;
@@ -103,6 +118,22 @@ const Bottom = styled.div`
 const ImageContainer = styled.div`
   height: 20em;
   width: 40em;
+`
+const OrdedButton = styled.button`
+  align-self: flex-end;
+  margin: 10px;
+  height: 4em;
+  width: 12em;
+  background-color: #ba2329;
+  :hover {
+    background-color: #c16757;
+  }
+  color: white;
+  font-size: large;
+  font-weight: bolder;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 0;
+  border-radius: 1em;
 `
 
 export default Home
