@@ -3,7 +3,7 @@ import React from 'react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
 import { useNavigate } from 'react-router-dom'
-import SelectDish from './SelectDish'
+
 const Home = () => {
   const navigate = useNavigate()
 
@@ -14,7 +14,11 @@ const Home = () => {
     <HomePage>
       <div>
         <Head>
-          <Logo src='http://ih1.redbubble.net/image.181146356.8650/sticker,375x360.u1.png' />
+          <Logo
+            src='http://ih1.redbubble.net/image.181146356.8650/sticker,375x360.u1.png'
+            alt='logo
+        '
+          />
           <HeaderNav href=''>Menu</HeaderNav>
           <HeaderNav href=''>Atmosphere</HeaderNav>
           <HeaderNav href=''>Location</HeaderNav>
@@ -76,7 +80,7 @@ const Logo = styled.img`
 const Top = styled.div`
   display: flex;
   justify-content: center;
-  padding: 4em;
+  padding: 1em;
 `
 const Slider = styled.div`
   height: 20em;
