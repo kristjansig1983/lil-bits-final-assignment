@@ -2,11 +2,11 @@ import styled from 'styled-components'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Drinks = () => {
+const OrderScreen = () => {
   const navigate = useNavigate()
 
-  const orderScreen = () => {
-    navigate('./OrderScreen')
+  const receiptScreen = () => {
+    navigate('./ReceiptScreen')
   }
   return (
     <DrinksPage>
@@ -22,11 +22,11 @@ const Drinks = () => {
           <HeaderNav href=''>Contact Us</HeaderNav>
         </Head>
       </div>
-      <NextPage>
-        <OrdedButton type='button' onClick={orderScreen}>
-          Next
+      <OrderBox>
+        <OrdedButton type='button' onClick={receiptScreen}>
+          Order
         </OrdedButton>
-      </NextPage>
+      </OrderBox>
     </DrinksPage>
   )
 }
@@ -51,13 +51,13 @@ const HeaderNav = styled.a`
 const Logo = styled.img`
   height: 10em;
 `
-const NextPage = styled.div`
+const OrderBox = styled.div`
   display: flex;
-  justify-content: center;
-  height: 15em;
-  width: 15em;
+  align-self: center;
+  justify-content: flex-end;
+  height: 30em;
+  width: 50em;
   border: 2px solid black;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 `
 const OrdedButton = styled.button`
   align-self: flex-end;
@@ -76,4 +76,4 @@ const OrdedButton = styled.button`
   border-radius: 1em;
 `
 
-export default Drinks
+export default OrderScreen
