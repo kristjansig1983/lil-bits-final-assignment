@@ -1,12 +1,19 @@
 import styled from 'styled-components'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  Navigate,
+  useNavigate,
+} from 'react-router-dom'
 
 const OrderScreen = () => {
   const navigate = useNavigate()
 
   const receiptScreen = () => {
-    navigate('./ReceiptScreen')
+    navigate('/ReceiptScreen')
   }
   return (
     <DrinksPage>

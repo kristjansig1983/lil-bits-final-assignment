@@ -10,23 +10,13 @@ import ReceiptScreen from './Components/ReceiptScreen'
 function App() {
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route exact path='/SelectDish' element={<SelectDish />} />
-          <Route exact path='/SelectDish/Drinks' element={<Drinks />} />
-          <Route
-            exact
-            path='/SelectDish/Drinks/OrderScreen'
-            element={<OrderScreen />}
-          />
-          <Route
-            exact
-            path='/SelectDish/Drinks/OrderScreen/ReceiptScreen'
-            element={<ReceiptScreen />}
-          />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route exact path='/' element={<Home />} />
+        <Route path='/SelectDish' element={<SelectDish />} />
+        <Route path='/Drinks' element={<Drinks />} />
+        <Route path='/OrderScreen' element={<OrderScreen />} />
+        <Route path='/ReceiptScreen' element={<ReceiptScreen />} />
+      </Routes>
     </div>
   )
 }

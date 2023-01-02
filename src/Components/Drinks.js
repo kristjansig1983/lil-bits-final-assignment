@@ -1,12 +1,19 @@
 import styled from 'styled-components'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  Navigate,
+  useNavigate,
+} from 'react-router-dom'
 
 const Drinks = () => {
   const navigate = useNavigate()
 
   const orderScreen = () => {
-    navigate('./OrderScreen')
+    navigate('/OrderScreen')
   }
   return (
     <DrinksPage>

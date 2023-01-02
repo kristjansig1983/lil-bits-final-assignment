@@ -1,12 +1,19 @@
 import styled from 'styled-components'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  Navigate,
+  useNavigate,
+} from 'react-router-dom'
 
 const SelectDish = () => {
   const navigate = useNavigate()
 
   const drinksPage = () => {
-    navigate('./Drinks')
+    navigate('/Drinks')
   }
   return (
     <DishPage>
@@ -26,6 +33,7 @@ const SelectDish = () => {
         <MainCourse></MainCourse>
         <NextPage>
           <OrdedButton type='button' onClick={drinksPage}>
+            <Link to={'/Drinks'}></Link>
             Select Drinks
           </OrdedButton>
         </NextPage>
