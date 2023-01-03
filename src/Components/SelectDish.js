@@ -8,6 +8,7 @@ import {
   Navigate,
   useNavigate,
 } from 'react-router-dom'
+import Meal from './Meal'
 
 const SelectDish = () => {
   const navigate = useNavigate()
@@ -30,7 +31,9 @@ const SelectDish = () => {
         </Head>
       </div>
       <Top>
-        <MainCourse></MainCourse>
+        <MainCourse>
+          <Meal />
+        </MainCourse>
         <NextPage>
           <OrdedButton type='button' onClick={drinksPage}>
             <Link to={'/Drinks'}></Link>
