@@ -8,6 +8,7 @@ import {
   Navigate,
   useNavigate,
 } from 'react-router-dom'
+import SelectDrinks from './SelectDrinks'
 
 const Drinks = () => {
   const navigate = useNavigate()
@@ -29,6 +30,7 @@ const Drinks = () => {
           <HeaderNav href=''>Contact Us</HeaderNav>
         </Head>
       </div>
+      <SelectDrinks></SelectDrinks>
       <NextPage>
         <OrdedButton type='button' onClick={orderScreen}>
           Next
