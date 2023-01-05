@@ -1,27 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 
-function Meal() {
-  const [meal, setMeal] = useState('')
-  function fetch_meal() {
-    fetch('https://api.punkapi.com/v2/beers')
-      .then(
-        (res) => {
-          if (res.ok) {
-            return res.json()
-          }
-          throw new Error('Request Failed')
-        },
-        (networkError) => console.timeLog(networkError.message)
-      )
-      .then((jsonRes) => {
-        setMeal(jsonRes[0].meal)
-      })
+const Meal = () => {
+  const [state, setState] = useState()
+
+  const getMeal = () => {
+    fetch('https://themealdb.com/api/json/v1/1/random.php')
+      .then((res) => res.json())
+      .then((result) => setState(result.meals[0]))
   }
+  useEffect(() => {
+    getMeal()
+  }, [])
+  console.log(state)
+
   return (
     <div>
-      <MealImg src='https://api.punkapi.com/v2/beers' />
-      <button onClick={fetch_meal}>bleh</button>
+      {state ? <MealImg src={state.strMealThumb} /> : <p>...Loading</p>}
+      <div>
+        <button onclick={getMeal}></button>
+      </div>
     </div>
   )
 }

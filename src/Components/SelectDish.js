@@ -41,7 +41,6 @@ const SelectDish = () => {
           </OrdedButton>
         </NextPage>
       </Top>
-      <TextContainer></TextContainer>
     </DishPage>
   )
 }
@@ -67,9 +66,10 @@ const HeaderNav = styled.a`
   padding: 4em;
 `
 const MainCourse = styled.div`
-  height: 20em;
+  height: 40em;
   width: 40em;
   border: 2px solid black;
+
   margin-right: 8px;
 `
 const Top = styled.div`
