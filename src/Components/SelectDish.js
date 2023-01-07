@@ -35,6 +35,10 @@ const SelectDish = () => {
           <Meal />
         </MainCourse>
         <NextPage>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua
+          </p>
           <OrdedButton type='button' onClick={drinksPage}>
             <Link to={'/Drinks'}></Link>
             Select Drinks
@@ -69,20 +73,23 @@ const MainCourse = styled.div`
   height: 40em;
   width: 40em;
   border: 2px solid black;
-
   margin-right: 8px;
+  border-radius: 10px;
 `
 const Top = styled.div`
   display: flex;
   justify-content: center;
   padding: 1em;
+  border-radius: 10px;
 `
 const NextPage = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   height: 15em;
   width: 15em;
   border: 2px solid black;
+  border-radius: 10px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 `
 const OrdedButton = styled.button`
@@ -100,14 +107,6 @@ const OrdedButton = styled.button`
   font-family: 'Courier New', Courier, monospace;
   padding: 0;
   border-radius: 1em;
-`
-const TextContainer = styled.div`
-  height: 20em;
-  width: 40em;
-  border: 2px solid black;
-  margin-right: 8px;
-  margin-bottom: 5em;
-  margin-left: 19.5em;
 `
 
 export default SelectDish

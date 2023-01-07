@@ -32,9 +32,14 @@ const Drinks = () => {
       </div>
       <SelectDrinks></SelectDrinks>
       <NextPage>
-        <OrdedButton type='button' onClick={orderScreen}>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus
+          gravida quis blandit turpis cursus in hac.
+        </p>
+        <OrderButton type='button' onClick={orderScreen}>
           Next
-        </OrdedButton>
+        </OrderButton>
       </NextPage>
     </DrinksPage>
   )
@@ -62,13 +67,16 @@ const Logo = styled.img`
 `
 const NextPage = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-self: center;
+  margin-bottom: 10px;
   height: 15em;
   width: 15em;
   border: 2px solid black;
+  border-radius: 10px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 `
-const OrdedButton = styled.button`
+const OrderButton = styled.button`
   align-self: flex-end;
   margin: 10px;
   height: 4em;

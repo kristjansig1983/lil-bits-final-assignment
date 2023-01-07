@@ -63,6 +63,7 @@ const Receipt = styled.div`
   height: 40em;
   width: 35em;
   border: 2px solid black;
+  border-radius: 10px;
 `
 const OrdedButton = styled.button`
   align-self: flex-end;

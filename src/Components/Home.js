@@ -48,14 +48,44 @@ const Home = () => {
             </Carousel>
           </Slider>
           <OrderContainer>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
             <OrdedButton type='button' onClick={dishPage}>
               Select Dish
             </OrdedButton>
           </OrderContainer>
         </Top>
         <Bottom>
-          <BottomContainer></BottomContainer>
-          <BottomContainer></BottomContainer>
+          <BottomContainer>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus
+              gravida quis blandit turpis cursus in hac. Non quam lacus
+              suspendisse faucibus interdum posuere lorem. Tellus integer
+              feugiat scelerisque varius morbi enim nunc faucibus a. Ut placerat
+              orci nulla pellentesque dignissim enim sit amet. Sed risus pretium
+              quam vulputate dignissim suspendisse. Metus dictum at tempor
+              commodo. Integer vitae justo eget magna fermentum iaculis. Nec
+              sagittis aliquam malesuada bibendum arcu vitae. Magnis dis
+              parturient montes nascetur ridiculus mus mauris.
+            </p>
+          </BottomContainer>
+          <BottomContainer>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus
+              gravida quis blandit turpis cursus in hac. Non quam lacus
+              suspendisse faucibus interdum posuere lorem. Tellus integer
+              feugiat scelerisque varius morbi enim nunc faucibus a. Ut placerat
+              orci nulla pellentesque dignissim enim sit amet. Sed risus pretium
+              quam vulputate dignissim suspendisse. Metus dictum at tempor
+              commodo. Integer vitae justo eget magna fermentum iaculis. Nec
+              sagittis aliquam malesuada bibendum arcu vitae. Magnis dis
+              parturient montes nascetur ridiculus mus mauris.
+            </p>
+          </BottomContainer>
         </Bottom>
       </Main>
     </HomePage>
@@ -88,42 +118,50 @@ const Top = styled.div`
   display: flex;
   justify-content: center;
   padding: 1em;
+  border-radius: 10px;
 `
 const Slider = styled.div`
   height: 20em;
   width: 40em;
   border: 2px solid black;
   margin-right: 8px;
+  border-radius: 10px;
 `
 
 const SliderImg = styled.img`
   height: 20em;
   width: 40em;
+  border-radius: 10px;
 `
 const OrderContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  height: 20em;
+  height: 15em;
   width: 15em;
   border: 2px solid black;
+  border-radius: 10px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 `
 const BottomContainer = styled.div`
   height: 20em;
   width: 27.5em;
   border: 2px solid black;
+  border-radius: 10px;
 `
 const Main = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
   padding: 6em;
+  border-radius: 10px;
 `
 
 const Bottom = styled.div`
   display: flex;
   justify-content: center;
   gap: 0.5em;
+  border-radius: 10px;
 `
 
 const ImageContainer = styled.div`
