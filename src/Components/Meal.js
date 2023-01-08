@@ -1,39 +1,41 @@
 import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 
 const Meal = () => {
-  const [state, setState] = useState()
-
-  const getMeal = () => {
-    if (state) {
-      console.log(state.strMeal)
-    }
-    fetch('https://themealdb.com/api/json/v1/1/random.php')
-      .then((res) => res.json())
-      .then((result) => setState(result.meals[0]))
+  const MealPrice = 50.0
+  const [meals, setMeals] = useState([])
+  const getMeal = async () => {
+    const result = await axios.get(
+      'https://themealdb.com/api/json/v1/1/random.php'
+    )
+    setMeals(result.data.meals)
   }
   useEffect(() => {
     getMeal()
   }, [])
-  console.log(state)
 
-  const [orderList, setOrderList] = useState([])
-  const mealPrice = 5000
+  if (meals.length === 0) {
+    return (
+      <div>
+        <p>...Loading</p>
+      </div>
+    )
+  }
 
   return (
-    <DishInfo>
-      {state ? <MealImg src={state.strMealThumb} /> : <p>...Loading</p>}
-      <NewDish onClick={getMeal}>Generate New</NewDish>
-      <DishName>
-        {state ? <p>{state.strMeal}</p> : <p>...Loading</p>}
-        <DishText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </DishText>
-      </DishName>
-    </DishInfo>
+    <div>
+      {meals.map((meal) => (
+        <DishInfo key={meal.idMeal}>
+          <MealImg src={meal.strMealThumb} />
+          <NewDish onClick={getMeal}>Generate New</NewDish>
+          <DishName>
+            <p>{meal.strMeal}</p>
+            <p>${MealPrice}</p>
+          </DishName>
+        </DishInfo>
+      ))}
+    </div>
   )
 }
 const DishInfo = styled.div`

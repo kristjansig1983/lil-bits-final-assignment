@@ -8,12 +8,13 @@ import {
   Navigate,
   useNavigate,
 } from 'react-router-dom'
+import SelectDrinks from '../Components/SelectDrinks'
 
-const ReceiptScreen = () => {
+const Drinks = () => {
   const navigate = useNavigate()
 
-  const homeScreen = () => {
-    navigate('/')
+  const orderScreen = () => {
+    navigate('/OrderScreen')
   }
   return (
     <DrinksPage>
@@ -29,10 +30,11 @@ const ReceiptScreen = () => {
           <HeaderNav href=''>Contact Us</HeaderNav>
         </Head>
       </div>
-      <OrdedButton type='button' onClick={homeScreen}>
-        Home
-      </OrdedButton>
-      <Receipt>Receipt</Receipt>
+      <SelectDrinks></SelectDrinks>
+
+      <OrderButton type='button' onClick={orderScreen}>
+        Next
+      </OrderButton>
     </DrinksPage>
   )
 }
@@ -57,18 +59,20 @@ const HeaderNav = styled.a`
 const Logo = styled.img`
   height: 10em;
 `
-const Receipt = styled.div`
+const NextPage = styled.div`
   display: flex;
+  flex-direction: column;
   align-self: center;
-  height: 40em;
-  width: 35em;
+  margin-bottom: 10px;
+  height: 15em;
+  width: 15em;
   border: 2px solid black;
   border-radius: 10px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 `
-const OrdedButton = styled.button`
-  align-self: flex-end;
+const OrderButton = styled.button`
+  align-self: center;
   margin: 10px;
-  margin-right: 10em;
   height: 4em;
   width: 12em;
   background-color: #ba2329;
@@ -82,4 +86,5 @@ const OrdedButton = styled.button`
   padding: 0;
   border-radius: 1em;
 `
-export default ReceiptScreen
+
+export default Drinks

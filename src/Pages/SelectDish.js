@@ -70,11 +70,12 @@ const HeaderNav = styled.a`
   padding: 4em;
 `
 const MainCourse = styled.div`
-  height: 40em;
+  height: 35em;
   width: 40em;
   border: 2px solid black;
   margin-right: 8px;
   border-radius: 10px;
+  text-align: center;
 `
 const Top = styled.div`
   display: flex;

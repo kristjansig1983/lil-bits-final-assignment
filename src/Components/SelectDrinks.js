@@ -1,35 +1,43 @@
 import React, { useState, useRef, useEffect } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const SelectDrinks = () => {
   const [drinks, setDrinks] = useState()
+  const DrinkPrice = 10
+  const [dataSet, setDataSet] = useState([])
 
-  const getDrinks = () => {
-    fetch('https://api.punkapi.com/v2/beers')
-      .then((res) => res.json())
-      .then((result) => setDrinks(result))
+  const getDrinks = async () => {
+    const result = await axios.get('https://api.punkapi.com/v2/beers')
+    setDrinks(result.data)
   }
+
   useEffect(() => {
     getDrinks()
   }, [])
-  console.log(drinks)
 
-  const [orderList, setOrderList] = useState([])
-  const drinkPrice = 1000
-
+  useEffect(() => {}, [dataSet])
+  localStorage.setItem('Drink', JSON.stringify(dataSet))
 
   return (
     <DrinksPage>
-      <DrinksGrid type='button' onClick={}>
+      <DrinksGrid>
         {drinks ? (
           drinks.map((drink) => (
-            <DrinkBox>
+            <DrinkCard
+              key={drink.id}
+              selected={dataSet.includes(drink.name)}
+              onClick={() => {
+                setDataSet([...dataSet, drink.name, DrinkPrice])
+              }}
+            >
               <DrinksImg key={drink.id} src={drink.image_url} />
               <DrinksName>
                 {drinks ? <p>{drink.name}</p> : <p>...Loading</p>}
+                <p>${DrinkPrice}</p>
               </DrinksName>
-            </DrinkBox>
+            </DrinkCard>
           ))
         ) : (
           <p>Loading...</p>
@@ -47,6 +55,7 @@ const DrinksImg = styled.img`
 const DrinksPage = styled.div`
   display: flex;
   justify-content: center;
+  text-align: center;
 `
 const DrinksGrid = styled.div`
   display: grid;
@@ -57,11 +66,11 @@ const DrinksName = styled.p`
   align-self: center;
   font-size: small;
 `
-const DrinkBox = styled.div`
+const DrinkCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 18em;
+  height: 20em;
   width: 8em;
   border: 2px solid black;
   margin: 10px;
@@ -69,7 +78,14 @@ const DrinkBox = styled.div`
   :hover {
     background-color: darkgray;
   }
-  
+  ${(props) =>
+    props.selected &&
+    css`
+      background-color: darkgray;
+      &:hover {
+        background-color: darkgray;
+      }
+    `}
 `
 
 export default SelectDrinks
