@@ -1,11 +1,11 @@
 import './App.css'
 import styled from 'styled-components'
-import Home from './Components/Home'
+import Home from './Pages/Home'
 import { BrowserRouter, Link, Route, Routes, Navigate } from 'react-router-dom'
-import SelectDish from './Components/SelectDish'
-import Drinks from './Components/Drinks'
-import OrderScreen from './Components/OrderScreen'
-import ReceiptScreen from './Components/ReceiptScreen'
+import SelectDish from './Pages/SelectDish'
+import Drinks from './Pages/Drinks'
+import OrderScreen from './Pages/OrderScreen'
+import ReceiptScreen from './Pages/ReceiptScreen'
 
 function App() {
   return (

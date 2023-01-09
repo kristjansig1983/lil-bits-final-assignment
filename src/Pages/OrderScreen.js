@@ -8,71 +8,65 @@ import {
   Navigate,
   useNavigate,
 } from 'react-router-dom'
-import DatePicker from 'react-datepicker'
-import { subDays, setHours, setMinutes } from 'date-fns'
-import 'react-datepicker/dist/react-datepicker.css'
-import { FaArrowCircleLeft } from 'react-icons/fa'
-import { FaArrowCircleRight } from 'react-icons/fa'
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css'
+import {
+  findOrder,
+  createOrderWithEmail,
+  updateInfo,
+} from '../utilities/storage'
+import { getEmailParam } from '../utilities/params'
 
 const OrderScreen = () => {
+  const [date, setDate] = useState(new Date())
+  const [time, setTime] = useState('16:00')
+  const [people, setPeople] = useState('')
   const [email, setEmail] = useState('')
-  const [isDisabled, setIsDisabled] = useState(true)
-  const handleChange = (e) => {
-    setEmail(e.target.value)
-    verifyEmail()
-  }
-  useEffect(() => {}, [email])
-  localStorage.setItem('email', JSON.stringify(email))
-  const verifyEmail = () => {
-    const regEx = /[a-zA-Z0-9.%+-]+@[a-z0-9]+\.[a-z]{2,8}(.[a-z{2,8}])?/g
-    if (regEx.test(email)) {
-      setIsDisabled(false)
-    } else {
-      setIsDisabled(true)
-    }
-  }
   const navigate = useNavigate()
 
-  function Calendar() {
-    const [startDate, setStartDate] = useState(new Date())
-    useEffect(() => {}, [startDate])
-    localStorage.setItem('Date', startDate)
-    return (
-      <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        showTimeSelect
-        minDate={subDays(new Date(), -1)}
-        timeFormat='HH:mm'
-        minTime={setHours(setMinutes(new Date(), 0), 16)}
-        maxTime={setHours(setMinutes(new Date(), 0), 22)}
-        timeCaption='time'
-        dateFormat='MMMM d, yyyy h:mm aa'
-      />
-    )
-  }
-  function GuestFunction() {
-    let [count, setCount] = useState(1)
-    useEffect(() => {}, [count])
-    localStorage.setItem('Guests', JSON.stringify(count))
-    function incrementCount() {
-      if (count == 10) {
-        setCount(count(10))
-      } else {
-        count = count + 1
-        setCount(count)
-      }
+  useEffect(() => {
+    const email = getEmailParam()
+    const order = findOrder(email)
+    if (order.info) {
+      setDate(new Date(order.info.date))
+      setTime(order.info.time)
+      setPeople(order.info.people)
+      setEmail(order.info.email)
     }
-    function decrementCount() {
-      if (count == 1) {
-        setCount(count(1))
-      } else {
-        count = count - 1
-        setCount(count)
-      }
+  }, [])
+
+  const times = []
+  for (let i = 16; i < 23; i++) {
+    for (let j = 0; j < 60; j += 30) {
+      times.push(`${i}:${j === 0 ? '00' : '30'}`)
     }
   }
 
+  function handleSubmit(event) {
+    event.preventDefault()
+    const currEmail = getEmailParam()
+    if (email && time && people && date) {
+      if (currEmail && findOrder(currEmail).info) {
+        updateInfo(currEmail, { date, time, people, email })
+      } else {
+        createOrderWithEmail({ date, time, people, email })
+      }
+      navigate('/ReceiptScreen?email=' + email)
+    } else {
+      alert('Please fill in all the fields')
+    }
+  }
+
+  const tileDisabled = ({ date }) => {
+    const day = date.getDay()
+    return (
+      new Date(date) < new Date().setHours(0, 0, 0, 0) || day === 0 || day === 6
+    )
+  }
+
+  const receiptScreen = () => {
+    navigate('/ReceiptScreen')
+  }
   return (
     <DrinksPage>
       <div>
@@ -89,23 +83,41 @@ const OrderScreen = () => {
       </div>
       <OrderBox>
         <SelectionText>Chose Date</SelectionText>
-        <Calendar />
+        <Calendar onChange={setDate} value={date} tileDisabled={tileDisabled} />
+        <label className='time-label'>
+          Time:
+          <select
+            className='time-box'
+            value={time}
+            onChange={(event) => setTime(event.target.value)}
+            required
+          >
+            {times.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+        </label>
         <SelectionText>Number of Guests</SelectionText>
-        <GuestFunction>
-          <GuestBox>
-            <GuestButton onClick={decrementCount}>
-              <FaArrowCircleLeft size={42} />
-            </GuestButton>
-            <h1>{count}</h1>
-            <GuestButton onClick={incrementCount}>
-              <FaArrowCircleRight size={42} />
-            </GuestButton>
-          </GuestBox>
-        </GuestFunction>
-        <EmailInput placeholder='Email' onChange={handleChange}></EmailInput>
-        <Link to={'/ReceiptScreen'}>
-          <OrderButton disabled={isDisabled}>Order</OrderButton>
-        </Link>
+        <GuestInput
+          placeholder='0'
+          min='1'
+          type='number'
+          value={people}
+          onChange={(e) => setPeople(e.target.value)}
+          required
+        />
+        <EmailInput
+          type='enail'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder='Email'
+          required
+        ></EmailInput>
+        <OrderButton type='button' onClick={receiptScreen}>
+          Order
+        </OrderButton>
       </OrderBox>
     </DrinksPage>
   )

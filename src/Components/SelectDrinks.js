@@ -17,9 +17,6 @@ const SelectDrinks = () => {
     getDrinks()
   }, [])
 
-  useEffect(() => {}, [dataSet])
-  localStorage.setItem('Drink', JSON.stringify(dataSet))
-
   return (
     <DrinksPage>
       <DrinksGrid>

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React from 'react'
+import React, { useState } from 'react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
 import {
@@ -10,12 +10,23 @@ import {
   Navigate,
   useNavigate,
 } from 'react-router-dom'
+import { findOrder } from '../utilities/storage'
 
 const Home = () => {
+  const [email, setEmail] = useState('')
   const navigate = useNavigate()
 
   const dishPage = () => {
     navigate('./SelectDish')
+  }
+
+  function findYourOrder(email) {
+    const order = findOrder(email)
+    if (order.info) {
+      navigate('/Receiptscreen?email=' + email)
+    } else {
+      alert('No Order Found')
+    }
   }
   return (
     <HomePage>
@@ -59,18 +70,17 @@ const Home = () => {
         </Top>
         <Bottom>
           <BottomContainer>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus
-              gravida quis blandit turpis cursus in hac. Non quam lacus
-              suspendisse faucibus interdum posuere lorem. Tellus integer
-              feugiat scelerisque varius morbi enim nunc faucibus a. Ut placerat
-              orci nulla pellentesque dignissim enim sit amet. Sed risus pretium
-              quam vulputate dignissim suspendisse. Metus dictum at tempor
-              commodo. Integer vitae justo eget magna fermentum iaculis. Nec
-              sagittis aliquam malesuada bibendum arcu vitae. Magnis dis
-              parturient montes nascetur ridiculus mus mauris.
-            </p>
+            <p>Find Your Order</p>
+            <label>Enter Your Email</label>
+            <input
+              type='email'
+              onChange={(e) => setEmail(e.currentTarget.value)}
+              value={email}
+              placeholder='Enter Email'
+            />
+            <OrdedButton onClick={() => findYourOrder(email)}>
+              Find Order
+            </OrdedButton>
           </BottomContainer>
           <BottomContainer>
             <p>
