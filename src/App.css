@@ -1,0 +1,31 @@
+
+  
+  :root{
+    --clr-primary: #E0E39A;
+    --clr-secondary: #3d6053;
+    --clr-alert: #c16757;
+    --clr-hover: #da8474;
+  }
+  
+  body{
+    background-color: var(--clr-primary);
+    text-align: center;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  ::-webkit-scrollbar-thumb {
+    background: var(--clr-secondary); 
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--clr-secondary); 
+  }

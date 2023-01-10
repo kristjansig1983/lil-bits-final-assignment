@@ -1,14 +1,6 @@
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
-import {
-  BrowserRouter,
-  Link,
-  Route,
-  Routes,
-  Navigate,
-  useNavigate,
-} from 'react-router-dom'
-import Meal from '../Components/Meal'
+import { useNavigate } from 'react-router-dom'
 import {
   findOrder,
   createNewOrder,
@@ -16,6 +8,7 @@ import {
   updateMeal,
 } from '../utilities/storage'
 import { getEmailParam } from '../utilities/params'
+import Header from '../Components/Header'
 
 function SelectDish() {
   const navigate = useNavigate()
@@ -58,10 +51,10 @@ function SelectDish() {
     const email = getEmailParam()
     if (email && findOrder(email).info) {
       updateMeal(email, meal)
-      navigate(`/Drinks?email=${email}`)
+      navigate(`/SelectDrinks?email=${email}`)
     } else {
       createNewOrder(meal)
-      navigate('/Drinks')
+      navigate('/SelectDrinks')
     }
   }
 
@@ -71,18 +64,7 @@ function SelectDish() {
 
   return (
     <DishPage className='App'>
-      <div>
-        <Head>
-          <Logo
-            src='http://ih1.redbubble.net/image.181146356.8650/sticker,375x360.u1.png'
-            alt='logo'
-          />
-          <HeaderNav href=''>Menu</HeaderNav>
-          <HeaderNav href=''>Atmosphere</HeaderNav>
-          <HeaderNav href=''>Location</HeaderNav>
-          <HeaderNav href=''>Contact Us</HeaderNav>
-        </Head>
-      </div>
+      <Header />
       <Top>
         <MainCourse>
           <DishInfo key={meal.idMeal}>
@@ -93,12 +75,12 @@ function SelectDish() {
               width='700'
               height='500'
             />
+            <HeaderText>{meal.strMeal}</HeaderText>
+            <PriceText>$ 500</PriceText>
             <NewDish type='button' onClick={handleClick}>
               New Meal
             </NewDish>
           </DishInfo>
-
-          <ul></ul>
         </MainCourse>
         <NextPage onClick={() => GoToNextPage()}>
           <OrderButton>Continue to Drinks</OrderButton>
@@ -113,25 +95,13 @@ const DishPage = styled.div`
   justify-content: center;
   flex-direction: column;
   color: #ba2329;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Times New Roman', Times, serif;
 `
 
-const Head = styled.div`
-  display: flex;
-  justify-content: center;
-`
-const Logo = styled.img`
-  height: 10em;
-`
-
-const HeaderNav = styled.a`
-  font-size: larger;
-  padding: 4em;
-`
 const MainCourse = styled.div`
   height: 35em;
   width: 40em;
-  border: 2px solid black;
+  border: 4px solid #ba2329;
   margin-right: 8px;
   border-radius: 10px;
   text-align: center;
@@ -148,9 +118,9 @@ const NextPage = styled.div`
   justify-content: center;
   height: 15em;
   width: 15em;
-  border: 2px solid black;
+  border: 4px solid #ba2329;
   border-radius: 10px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Times New Roman', Times, serif;
 `
 const OrderButton = styled.button`
   align-self: flex-end;
@@ -164,16 +134,16 @@ const OrderButton = styled.button`
   color: white;
   font-size: large;
   font-weight: bolder;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Times New Roman', Times, serif;
   padding: 0;
   border-radius: 1em;
+  border: 0px;
 `
 const DishInfo = styled.div`
   display: flex;
   justify-items: center;
   align-items: center;
   flex-direction: column;
-  padding: 6px;
 `
 const MealImg = styled.img`
   height: 20em;
@@ -191,13 +161,19 @@ const NewDish = styled.button`
   color: white;
   font-size: large;
   font-weight: bolder;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Times New Roman', Times, serif;
   padding: 0;
   border-radius: 1em;
+  border: 0px;
 `
-const DishName = styled.p`
-  align-self: center;
+
+const HeaderText = styled.p`
   font-size: x-large;
+  font-weight: bolder;
+`
+const PriceText = styled.p`
+  font-size: larger;
+  font-weight: bold;
 `
 
 export default SelectDish

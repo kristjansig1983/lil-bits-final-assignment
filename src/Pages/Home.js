@@ -2,15 +2,9 @@ import styled from 'styled-components'
 import React, { useState } from 'react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
-import {
-  BrowserRouter,
-  Link,
-  Route,
-  Routes,
-  Navigate,
-  useNavigate,
-} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { findOrder } from '../utilities/storage'
+import Header from '../Components/Header'
 
 function Home() {
   const [email, setEmail] = useState('')
@@ -23,26 +17,14 @@ function Home() {
   function findYourOrder(email) {
     const order = findOrder(email)
     if (order.info) {
-      navigate('/Receiptscreen?email=' + email)
+      navigate('/ReceiptScreen?email=' + email)
     } else {
       alert('No Order Found')
     }
   }
   return (
     <HomePage>
-      <div>
-        <Head>
-          <Logo
-            src='http://ih1.redbubble.net/image.181146356.8650/sticker,375x360.u1.png'
-            alt='logo
-        '
-          />
-          <HeaderNav href=''>Menu</HeaderNav>
-          <HeaderNav href=''>Atmosphere</HeaderNav>
-          <HeaderNav href=''>Location</HeaderNav>
-          <HeaderNav href=''>Contact Us</HeaderNav>
-        </Head>
-      </div>
+      <Header />
       <Main>
         <Top>
           <Slider>
@@ -59,42 +41,25 @@ function Home() {
             </Carousel>
           </Slider>
           <OrderContainer>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <OrdedButton type='button' onClick={dishPage}>
+            <HeaderText>Select Your Drinks</HeaderText>
+            <OrderButton type='button' onClick={dishPage}>
               Select Dish
-            </OrdedButton>
+            </OrderButton>
           </OrderContainer>
         </Top>
         <Bottom>
           <BottomContainer>
-            <p>Find Your Order</p>
-            <label>Enter Your Email</label>
-            <input
+            <HeaderText>Find Your Order</HeaderText>
+            <Label>Enter Your Email</Label>
+            <EmailInput
               type='email'
               onChange={(e) => setEmail(e.currentTarget.value)}
               value={email}
               placeholder='Enter Email'
             />
-            <OrdedButton onClick={() => findYourOrder(email)}>
+            <OrderButton onClick={() => findYourOrder(email)}>
               Find Order
-            </OrdedButton>
-          </BottomContainer>
-          <BottomContainer>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus
-              gravida quis blandit turpis cursus in hac. Non quam lacus
-              suspendisse faucibus interdum posuere lorem. Tellus integer
-              feugiat scelerisque varius morbi enim nunc faucibus a. Ut placerat
-              orci nulla pellentesque dignissim enim sit amet. Sed risus pretium
-              quam vulputate dignissim suspendisse. Metus dictum at tempor
-              commodo. Integer vitae justo eget magna fermentum iaculis. Nec
-              sagittis aliquam malesuada bibendum arcu vitae. Magnis dis
-              parturient montes nascetur ridiculus mus mauris.
-            </p>
+            </OrderButton>
           </BottomContainer>
         </Bottom>
       </Main>
@@ -107,21 +72,7 @@ const HomePage = styled.div`
   justify-content: center;
   flex-direction: column;
   color: #ba2329;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-`
-
-const Head = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
-const HeaderNav = styled.a`
-  font-size: larger;
-  padding: 4em;
-`
-
-const Logo = styled.img`
-  height: 10em;
+  font-family: 'Times New Roman', Times, serif;
 `
 
 const Top = styled.div`
@@ -133,7 +84,7 @@ const Top = styled.div`
 const Slider = styled.div`
   height: 20em;
   width: 40em;
-  border: 2px solid black;
+  border: 4px solid #ba2329;
   margin-right: 8px;
   border-radius: 10px;
 `
@@ -149,14 +100,13 @@ const OrderContainer = styled.div`
   justify-content: center;
   height: 15em;
   width: 15em;
-  border: 2px solid black;
+  border: 4px solid #ba2329;
   border-radius: 10px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 `
 const BottomContainer = styled.div`
-  height: 20em;
-  width: 27.5em;
-  border: 2px solid black;
+  height: 15em;
+  width: 56em;
+  border: 4px solid #ba2329;
   border-radius: 10px;
 `
 const Main = styled.div`
@@ -178,7 +128,7 @@ const ImageContainer = styled.div`
   height: 20em;
   width: 40em;
 `
-const OrdedButton = styled.button`
+const OrderButton = styled.button`
   align-self: flex-end;
   margin: 10px;
   height: 4em;
@@ -189,10 +139,29 @@ const OrdedButton = styled.button`
   }
   color: white;
   font-size: large;
+  font-family: 'Times New Roman', Times, serif;
   font-weight: bolder;
-  font-family: 'Courier New', Courier, monospace;
   padding: 0;
   border-radius: 1em;
+  border: 0px;
+`
+const HeaderText = styled.p`
+  font-size: x-large;
+  font-weight: bolder;
+`
+const Label = styled.label`
+  font-size: larger;
+  margin-right: 8px;
+  font-weight: bold;
+`
+const EmailInput = styled.input`
+  height: 2em;
+  width: 20em;
+  border-radius: 10px;
+  border: 2px solid #ba2329;
+  color: #ba2329;
+  background-color: #e0e39a;
+  font-weight: bold;
 `
 
 export default Home

@@ -8,8 +8,9 @@ import {
   updateDrinks,
 } from '../utilities/storage'
 import { getEmailParam } from '../utilities/params'
+import Header from '../Components/Header'
 
-function Drinks() {
+function SelectDrinks() {
   const navigate = useNavigate()
   const [drinks, setDrinks] = useState([])
   const [loading, setLoading] = useState(true)
@@ -75,18 +76,7 @@ function Drinks() {
 
   return (
     <DrinksPage>
-      <div>
-        <Head>
-          <Logo
-            src='http://ih1.redbubble.net/image.181146356.8650/sticker,375x360.u1.png'
-            alt='logo'
-          />
-          <HeaderNav href=''>Menu</HeaderNav>
-          <HeaderNav href=''>Atmosphere</HeaderNav>
-          <HeaderNav href=''>Location</HeaderNav>
-          <HeaderNav href=''>Contact Us</HeaderNav>
-        </Head>
-      </div>
+      <Header />
       <OrderButton onClick={() => GoToNextPage()}>Next</OrderButton>
       <DrinksGrid>
         {drinks.map((drink) => (
@@ -96,18 +86,19 @@ function Drinks() {
           >
             <DrinkCard>
               <DrinksImg src={drink.image_url} alt={drink.name} />
-              <h3>{drink.name}</h3>
-              <button
+              <DrinksName>{drink.name}</DrinksName>
+              <DrinkButton
                 className='select-drink'
                 onClick={() => handleItemSelect(drink)}
               >
                 {checkSelected(drink) ? 'Deselect Drink' : 'Select Drink'}
-              </button>
-              500kr
+              </DrinkButton>
+              <PriceText>$ 50</PriceText>
             </DrinkCard>
           </div>
         ))}
       </DrinksGrid>
+      <OrderButton onClick={() => GoToNextPage()}>Next</OrderButton>
     </DrinksPage>
   )
 }
@@ -117,33 +108,10 @@ const DrinksPage = styled.div`
   justify-content: center;
   flex-direction: column;
   color: #ba2329;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Times New Roman', Times, serif;
   text-align: center;
 `
-const Head = styled.div`
-  display: flex;
-  justify-content: center;
-`
 
-const HeaderNav = styled.a`
-  font-size: larger;
-  padding: 4em;
-`
-
-const Logo = styled.img`
-  height: 10em;
-`
-const NextPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  margin-bottom: 10px;
-  height: 15em;
-  width: 15em;
-  border: 2px solid black;
-  border-radius: 10px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-`
 const OrderButton = styled.button`
   align-self: center;
   margin: 10px;
@@ -156,9 +124,10 @@ const OrderButton = styled.button`
   color: white;
   font-size: large;
   font-weight: bolder;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Times New Roman', Times, serif;
   padding: 0;
   border-radius: 1em;
+  border: 0px;
 `
 const DrinksImg = styled.img`
   height: 12em;
@@ -173,16 +142,18 @@ const DrinksGrid = styled.div`
 `
 const DrinksName = styled.p`
   align-self: center;
-  font-size: small;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bolder;
+  font-size: larger;
 `
 const DrinkCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 20em;
-  width: 8em;
-  border: 2px solid black;
-  margin: 10px;
+  height: 27em;
+  width: 12em;
+  border: 4px solid #ba2329;
+  margin: 6px;
   border-radius: 10px;
   :hover {
     background-color: darkgray;
@@ -196,5 +167,26 @@ const DrinkCard = styled.div`
       }
     `}
 `
+const DrinkButton = styled.button`
+  align-self: center;
+  margin: 10px;
+  height: 3em;
+  width: 7em;
+  background-color: #ba2329;
+  :hover {
+    background-color: #c16757;
+  }
+  color: white;
+  font-size: large;
+  font-weight: bolder;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 0;
+  border-radius: 1em;
+  border: 0px;
+`
+const PriceText = styled.p`
+  font-size: larger;
+  font-weight: bold;
+`
 
-export default Drinks
+export default SelectDrinks
