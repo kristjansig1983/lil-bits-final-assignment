@@ -22,8 +22,8 @@ const ReceiptScreen = () => {
   }, [])
 
   const calculateOrder = () => {
-    const meals = 400 * order.info.people
-    const drinks = 50 * order.info.people * order.drinks.length
+    const meals = 200 * order.info.people
+    const drinks = 50 * order.drinks.length
     return meals + drinks
   }
 
@@ -65,7 +65,7 @@ const ReceiptScreen = () => {
                   </li>
                   {order.drinks.map((drink) => (
                     <li key={drink.id}>
-                      Drinks: {drink.name} x {order.info.people}
+                      Drinks: {drink.name}
                       <span> ${50}</span>
                     </li>
                   ))}

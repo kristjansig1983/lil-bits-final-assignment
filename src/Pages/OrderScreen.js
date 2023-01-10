@@ -1,13 +1,6 @@
 import styled from 'styled-components'
 import React, { useState, useEffect } from 'react'
-import {
-  BrowserRouter,
-  Link,
-  Route,
-  Routes,
-  Navigate,
-  useNavigate,
-} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import {
@@ -17,7 +10,7 @@ import {
 } from '../utilities/storage'
 import { getEmailParam } from '../utilities/params'
 
-const OrderScreen = () => {
+function OrderScreen() {
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState('16:00')
   const [people, setPeople] = useState('')
@@ -64,9 +57,6 @@ const OrderScreen = () => {
     )
   }
 
-  const receiptScreen = () => {
-    navigate('/ReceiptScreen')
-  }
   return (
     <DrinksPage>
       <div>
@@ -84,40 +74,48 @@ const OrderScreen = () => {
       <OrderBox>
         <SelectionText>Chose Date</SelectionText>
         <Calendar onChange={setDate} value={date} tileDisabled={tileDisabled} />
-        <label className='time-label'>
-          Time:
-          <select
-            className='time-box'
-            value={time}
-            onChange={(event) => setTime(event.target.value)}
-            required
-          >
-            {times.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-        </label>
-        <SelectionText>Number of Guests</SelectionText>
-        <GuestInput
-          placeholder='0'
-          min='1'
-          type='number'
-          value={people}
-          onChange={(e) => setPeople(e.target.value)}
-          required
-        />
-        <EmailInput
-          type='enail'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder='Email'
-          required
-        ></EmailInput>
-        <OrderButton type='button' onClick={receiptScreen}>
-          Order
-        </OrderButton>
+        <form className='time-form' onSubmit={handleSubmit}>
+          <label className='time-label'>
+            Time:
+            <select
+              className='time-box'
+              value={time}
+              onChange={(event) => setTime(event.target.value)}
+              required
+            >
+              {times.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </label>
+          <br></br>
+          <label className='people-box'>
+            Number of people:
+            <input
+              className='number-people'
+              type='number'
+              value={people}
+              onChange={(event) => setPeople(event.target.value)}
+              min='1'
+              required
+            />
+            <br></br>
+            Email:
+            <EmailInput
+              className='number-people'
+              type='email'
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
+            <br></br>
+            <OrderButton className='receipt-screen-button' type='submit'>
+              Next
+            </OrderButton>
+          </label>
+        </form>
       </OrderBox>
     </DrinksPage>
   )

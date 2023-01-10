@@ -12,7 +12,7 @@ import {
 } from 'react-router-dom'
 import { findOrder } from '../utilities/storage'
 
-const Home = () => {
+function Home() {
   const [email, setEmail] = useState('')
   const navigate = useNavigate()
 

@@ -17,7 +17,7 @@ import {
 } from '../utilities/storage'
 import { getEmailParam } from '../utilities/params'
 
-const SelectDish = () => {
+function SelectDish() {
   const navigate = useNavigate()
   const [meal, setMeal] = useState()
   const [loading, setLoading] = useState(true)
@@ -54,7 +54,7 @@ const SelectDish = () => {
       })
   }
 
-  const Drinkspage = () => {
+  const GoToNextPage = () => {
     const email = getEmailParam()
     if (email && findOrder(email).info) {
       updateMeal(email, meal)
@@ -68,8 +68,9 @@ const SelectDish = () => {
   if (loading) {
     return <p>Loading...</p>
   }
+
   return (
-    <DishPage>
+    <DishPage className='App'>
       <div>
         <Head>
           <Logo
@@ -85,22 +86,22 @@ const SelectDish = () => {
       <Top>
         <MainCourse>
           <DishInfo key={meal.idMeal}>
-            <MealImg src={meal.strMealThumb} />
-            <NewDish onClick={handleClick}>Generate New</NewDish>
-            <DishName>
-              <p>{meal.strMeal}</p>
-            </DishName>
+            <MealImg
+              className='meal-image'
+              src={meal.strMealThumb}
+              alt={meal.strMeal}
+              width='700'
+              height='500'
+            />
+            <NewDish type='button' onClick={handleClick}>
+              New Meal
+            </NewDish>
           </DishInfo>
+
+          <ul></ul>
         </MainCourse>
-        <NextPage>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
-          </p>
-          <OrdedButton type='button' onClick={Drinkspage}>
-            <Link to={'/Drinks'}></Link>
-            Select Drinks
-          </OrdedButton>
+        <NextPage onClick={() => GoToNextPage()}>
+          <OrderButton>Continue to Drinks</OrderButton>
         </NextPage>
       </Top>
     </DishPage>
@@ -151,7 +152,7 @@ const NextPage = styled.div`
   border-radius: 10px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 `
-const OrdedButton = styled.button`
+const OrderButton = styled.button`
   align-self: flex-end;
   margin: 10px;
   height: 4em;

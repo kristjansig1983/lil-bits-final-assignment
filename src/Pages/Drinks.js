@@ -1,21 +1,78 @@
-import styled from 'styled-components'
-import React from 'react'
+import styled, { css } from 'styled-components'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
-  BrowserRouter,
-  Link,
-  Route,
-  Routes,
-  Navigate,
-  useNavigate,
-} from 'react-router-dom'
-import SelectDrinks from '../Components/SelectDrinks'
+  addDrinksToNewOrder,
+  findOrder,
+  getCurrentOrder,
+  updateDrinks,
+} from '../utilities/storage'
+import { getEmailParam } from '../utilities/params'
 
-const Drinks = () => {
+function Drinks() {
   const navigate = useNavigate()
+  const [drinks, setDrinks] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  const orderScreen = () => {
-    navigate('/OrderScreen')
+  const [selectedItems, setSelectedItems] = useState([])
+
+  useEffect(() => {
+    const email = getEmailParam()
+    const order = findOrder(email)
+    async function fetchData() {
+      const response = await fetch('https://api.punkapi.com/v2/beers')
+      const data = await response.json()
+      setDrinks(data)
+      setLoading(false)
+    }
+    fetchData()
+
+    if (order.drinks) {
+      setSelectedItems(order.drinks)
+    } else if (getCurrentOrder()) {
+      setSelectedItems(getCurrentOrder().drinks)
+    } else setSelectedItems([])
+  }, [])
+
+  function GoToNextPage() {
+    if (!Array.isArray(selectedItems) || selectedItems.length === 0) {
+      alert('Please select at least one drink')
+      return
+    }
+    const email = getEmailParam()
+    if (email) {
+      updateDrinks(email, selectedItems)
+      navigate('/OrderScreen?email=' + email)
+    } else {
+      addDrinksToNewOrder(selectedItems)
+      navigate('/OrderScreen')
+    }
   }
+
+  function handleItemSelect(item) {
+    if (
+      Array.isArray(selectedItems) &&
+      selectedItems.findIndex((val) => val.id === item.id) > -1
+    ) {
+      setSelectedItems(selectedItems.filter((val) => val.id !== item.id))
+    } else {
+      if (Array.isArray(selectedItems)) {
+        setSelectedItems([...selectedItems, item])
+      } else setSelectedItems([item])
+    }
+  }
+
+  function checkSelected(item) {
+    return (
+      Array.isArray(selectedItems) &&
+      selectedItems.findIndex((val) => val.id === item.id) > -1
+    )
+  }
+
+  if (loading) {
+    return <p>Loading...</p>
+  }
+
   return (
     <DrinksPage>
       <div>
@@ -30,11 +87,27 @@ const Drinks = () => {
           <HeaderNav href=''>Contact Us</HeaderNav>
         </Head>
       </div>
-      <SelectDrinks></SelectDrinks>
-
-      <OrderButton type='button' onClick={orderScreen}>
-        Next
-      </OrderButton>
+      <OrderButton onClick={() => GoToNextPage()}>Next</OrderButton>
+      <DrinksGrid>
+        {drinks.map((drink) => (
+          <div
+            className={`card ${checkSelected(drink) ? 'checked' : ''}`}
+            key={drink.id}
+          >
+            <DrinkCard>
+              <DrinksImg src={drink.image_url} alt={drink.name} />
+              <h3>{drink.name}</h3>
+              <button
+                className='select-drink'
+                onClick={() => handleItemSelect(drink)}
+              >
+                {checkSelected(drink) ? 'Deselect Drink' : 'Select Drink'}
+              </button>
+              500kr
+            </DrinkCard>
+          </div>
+        ))}
+      </DrinksGrid>
     </DrinksPage>
   )
 }
@@ -45,6 +118,7 @@ const DrinksPage = styled.div`
   flex-direction: column;
   color: #ba2329;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-align: center;
 `
 const Head = styled.div`
   display: flex;
@@ -85,6 +159,42 @@ const OrderButton = styled.button`
   font-family: 'Courier New', Courier, monospace;
   padding: 0;
   border-radius: 1em;
+`
+const DrinksImg = styled.img`
+  height: 12em;
+  width: 5em;
+  margin-top: 2em;
+`
+
+const DrinksGrid = styled.div`
+  display: grid;
+  flex-direction: column;
+  grid-template-columns: repeat(5, 1fr);
+`
+const DrinksName = styled.p`
+  align-self: center;
+  font-size: small;
+`
+const DrinkCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 20em;
+  width: 8em;
+  border: 2px solid black;
+  margin: 10px;
+  border-radius: 10px;
+  :hover {
+    background-color: darkgray;
+  }
+  ${(props) =>
+    props.selected &&
+    css`
+      background-color: darkgray;
+      &:hover {
+        background-color: darkgray;
+      }
+    `}
 `
 
 export default Drinks
